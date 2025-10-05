@@ -7,7 +7,12 @@ public class DeckManager : MonoBehaviour
     private int[] cardRanks = new int[53];
     private int currentIndex = 0;
 
-    void GetCardRank()
+    void Start()
+    {
+        GetCardRanks();
+    }
+
+    void GetCardRanks()
     {
         int num = 0;
 
@@ -23,8 +28,6 @@ public class DeckManager : MonoBehaviour
 
             cardRanks[i] = num++;
         }
-
-        currentIndex = 1;
     }
 
     public void Shuffle()
@@ -41,6 +44,8 @@ public class DeckManager : MonoBehaviour
             cardRanks[i] = cardRanks[j];
             cardRanks[j] = rank;
         }
+
+        currentIndex = 1;
     }
 
     public int Deal(Card card)
