@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public AudioClip decreaseBetSFX;
     public AudioClip winSFX;
     public AudioClip loseSFX;
+    public AudioClip blackjackSFX;
 
     private int standClicks = 0;
     private int pot = 0;
@@ -52,6 +53,14 @@ public class GameManager : MonoBehaviour
         "You’ve earned a brief extension on existence.",
         "Well played, soul survivor.",
         "You really took my breath away—shame I have none."
+    };
+
+    private readonly string[] blackjackLines = {
+        "A natural! Death is impressed.",
+        "Twenty-one! I tip my scythe to you.",
+        "A perfect hand… mortal, you tease fate.",
+        "Blackjack! Not even I saw that coming.",
+        "You’ve danced with death and won instantly."
     };
 
     private readonly string[] loseLines = {
@@ -134,6 +143,22 @@ public class GameManager : MonoBehaviour
         decreaseBetBtn.interactable = false;
 
         UpdateUI();
+
+        if (player.handValue == 21)
+        {
+            audioSource.PlayOneShot(blackjackSFX);
+            int payout = Mathf.RoundToInt(currentBet * 1.5f / 2f) * 2;
+            player.AdjustMoney(currentBet + payout);
+            mainText.text = blackjackLines[UnityEngine.Random.Range(0, blackjackLines.Length)];
+            roundActive = false;
+            hitBtn.gameObject.SetActive(false);
+            standBtn.gameObject.SetActive(false);
+            dealBtn.gameObject.SetActive(true);
+            betBtn.interactable = true;
+            decreaseBetBtn.interactable = true;
+            UpdateUI();
+            if (player.GetMoney() >= 100) StartCoroutine(GameOver());
+        }
     }
 
     public void OnHit()
@@ -226,6 +251,8 @@ public class GameManager : MonoBehaviour
 
     void RoundOver()
     {
+        if (!roundActive) return;
+
         bool playerBust = player.handValue > 21;
         bool dealerBust = dealer.handValue > 21;
         string result = "";
@@ -276,24 +303,22 @@ public class GameManager : MonoBehaviour
 
         if (player.GetMoney() <= 0)
         {
-            mainText.text = "No souls left. Welcome to my domain.";
+            mainText.text = loseGameLine;
             StartCoroutine(GameOver());
         }
         else if (player.GetMoney() >= 100)
         {
-            mainText.text = "A hundred souls? Consider yourself undeadly lucky.";
+            mainText.text = winGameLine;
             StartCoroutine(GameOver());
         }
     }
 
     IEnumerator GameOver()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         yield return new WaitForSeconds(3f);
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
         Application.Quit();
-#endif
     }
 
     private void UpdateUI()

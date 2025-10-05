@@ -3515,14 +3515,14 @@ MonoBehaviour:
   dealerText: {fileID: 1985072713}
   betsText: {fileID: 8972113}
   cashText: {fileID: 653356969}
-  audioSource: {fileID: 0}
-  dealSFX: {fileID: 0}
-  hitSFX: {fileID: 0}
-  standSFX: {fileID: 0}
-  increaseBetSFX: {fileID: 0}
-  decreaseBetSFX: {fileID: 0}
-  winSFX: {fileID: 0}
-  loseSFX: {fileID: 0}
+  audioSource: {fileID: 279110484}
+  dealSFX: {fileID: 8300000, guid: e2a467346722c0c46864913536f5e254, type: 3}
+  hitSFX: {fileID: 8300000, guid: 523ad57c6a01b344184c73b27d7ddd0c, type: 3}
+  standSFX: {fileID: 8300000, guid: d43e91aaec10202488d54dba35256f5d, type: 3}
+  increaseBetSFX: {fileID: 8300000, guid: 3d4a2fa0eb6b16541bfafbda82b901f0, type: 3}
+  decreaseBetSFX: {fileID: 8300000, guid: 523ad57c6a01b344184c73b27d7ddd0c, type: 3}
+  winSFX: {fileID: 8300000, guid: 16f2830ee2add1a4ea7099ea395d4ecb, type: 3}
+  loseSFX: {fileID: 8300000, guid: bb277643e91ba5044ad97e1cd43738e4, type: 3}
   player: {fileID: 843749793}
   dealer: {fileID: 1125497081}
   deck: {fileID: 1802778870}
