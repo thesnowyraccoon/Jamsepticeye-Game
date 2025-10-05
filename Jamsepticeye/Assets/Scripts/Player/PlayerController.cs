@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public int handValue = 0;
     public GameObject[] hand;
 
-    private int money = 1000;
+    private int money = 10;
 
     public void StartHand()
     {

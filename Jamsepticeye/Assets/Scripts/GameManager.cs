@@ -62,12 +62,12 @@ public class GameManager : MonoBehaviour
 
         standBtnText.text = "Stand";
 
-        pot = 40;
-        betsText.text = "Bets: $" + pot.ToString();
+        pot = 4;
+        betsText.text = "Souls Bet - " + pot.ToString();
 
-        player.AdjustMoney(-20);
+        player.AdjustMoney(-2);
 
-        cashText.text = "$" + player.GetMoney().ToString();
+        cashText.text = player.GetMoney().ToString() + " souls";
     }
 
     public void OnHit()
@@ -96,17 +96,15 @@ public class GameManager : MonoBehaviour
     public void OnBet()
     {
         TMP_Text newBet = betBtn.GetComponentInChildren(typeof(TMP_Text)) as TMP_Text;
-        int intBet = int.Parse(newBet.text.ToString().Remove(0, 1));
-
-        Debug.Log("AHHH");
+        int intBet = int.Parse(newBet.text.ToString().Remove(1));
 
         player.AdjustMoney(-intBet);
 
-        cashText.text = "$" + player.GetMoney().ToString();
+        cashText.text = player.GetMoney().ToString() + " souls";
 
         pot += intBet * 2;
 
-        betsText.text = "Bets: $" + pot.ToString();
+        betsText.text = "Souls Bet - " + pot.ToString();
     }
 
     private void HitDealer()
@@ -169,7 +167,7 @@ public class GameManager : MonoBehaviour
 
             hideCard.GetComponent<Renderer>().enabled = false;
 
-            cashText.text = "$" + player.GetMoney().ToString();
+            cashText.text = player.GetMoney().ToString() + " souls";
 
             standClicks = 0;
         }
