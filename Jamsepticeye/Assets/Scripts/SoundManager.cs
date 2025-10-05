@@ -8,6 +8,9 @@ public class MusicSwitcher : MonoBehaviour
     public float fadeSpeed = 1f;
     private bool playingA = true;
 
+    private PlayerController playerController;
+    private GameManager gameManager;
+
     void Start()
     {
         songA.Play();
@@ -15,15 +18,26 @@ public class MusicSwitcher : MonoBehaviour
 
         songA.volume = 1f;
         songB.volume = 0f;
+
+        playerController = FindFirstObjectByType<PlayerController>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (playerController.GetMoney() < 10)
         {
-            playingA = !playingA;
+            playingA = false;
             StopAllCoroutines();
             StartCoroutine(FadeMusic());
+            gameManager.cashText.color = Color.red;
+        }
+        else
+        {
+            playingA = true;
+            StopAllCoroutines();
+            StartCoroutine(FadeMusic());
+            gameManager.cashText.color = Color.white;
         }
     }
 
